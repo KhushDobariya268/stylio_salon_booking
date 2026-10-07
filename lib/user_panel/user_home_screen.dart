@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:stylio_salon_booking/resources/imagestring.dart';
+import 'package:stylio_salon_booking/resources/textplaceholder.dart';
+import 'package:stylio_salon_booking/user_panel/filter_screen.dart';
+import 'package:stylio_salon_booking/user_panel/my_bookings_screen.dart';
 import 'package:stylio_salon_booking/user_panel/salon_details_screen.dart';
+import 'package:stylio_salon_booking/user_panel/search_screen.dart';
+import 'package:stylio_salon_booking/user_panel/user_profile_screen.dart';
+import 'package:stylio_salon_booking/user_panel/user_settings_screen.dart';
 
 class UserHomeScreen extends StatefulWidget {
   const UserHomeScreen({super.key});
@@ -42,7 +48,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
         centerTitle: true,
         automaticallyImplyLeading: false,
         title: const Text(
-          'Stylio',
+          appTitle,
           style: TextStyle(
             color: Colors.black,
             fontSize: 22,
@@ -52,13 +58,22 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
-            child: CircleAvatar(
-              radius: 18,
-              backgroundColor: const Color(0xFFE8DEF8),
-              child: const Icon(
-                Icons.person_outline_rounded,
-                color: Color(0xFF65558F),
-                size: 22,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const UserProfileScreen(),
+                  ),
+                );
+              },
+              child: const CircleAvatar(
+                radius: 18,
+                backgroundColor: Color(0xFFE8DEF8),
+                child: Icon(
+                  Icons.person_outline_rounded,
+                  color: Color(0xFF65558F),
+                  size: 22,
+                ),
               ),
             ),
           ),
@@ -75,7 +90,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 text: const TextSpan(
                   children: [
                     TextSpan(
-                      text: 'Good Morning, Khush 👋\n',
+                      text: userGreeting,
                       style: TextStyle(
                         color: Color(0xFFB88E3E),
                         fontSize: 16,
@@ -84,7 +99,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                       ),
                     ),
                     TextSpan(
-                      text: 'Find Your Perfect\nSalon Experience',
+                      text: findSalonTagline,
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 20,
@@ -102,48 +117,69 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
               Row(
                 children: [
                   Expanded(
-                    child: Container(
-                      height: 46,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: Colors.grey.shade300,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const SearchScreen(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: 46,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: Colors.grey.shade300,
+                          ),
                         ),
-                      ),
-                      child: const TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Search salons, services...',
-                          hintStyle: TextStyle(
-                            color: Colors.black38,
-                            fontSize: 14,
+                        child: const AbsorbPointer(
+                          child: TextField(
+                            decoration: InputDecoration(
+                              hintText: searchSalonsHint,
+                              hintStyle: TextStyle(
+                                color: Colors.black38,
+                                fontSize: 14,
+                              ),
+                              prefixIcon: Icon(
+                                Icons.search_rounded,
+                                color: Colors.black87,
+                              ),
+                              border: InputBorder.none,
+                              contentPadding:
+                                  EdgeInsets.symmetric(vertical: 12),
+                            ),
                           ),
-                          prefixIcon: Icon(
-                            Icons.search_rounded,
-                            color: Colors.black87,
-                          ),
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(vertical: 12),
                         ),
                       ),
                     ),
                   ),
                   const SizedBox(width: 12),
-                  Container(
-                    height: 46,
-                    width: 46,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 1.2,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const FilterScreen(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 46,
+                      width: 46,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 1.2,
+                        ),
                       ),
-                    ),
-                    child: const Icon(
-                      Icons.filter_alt_outlined,
-                      color: Colors.black,
-                      size: 24,
+                      child: const Icon(
+                        Icons.filter_alt_outlined,
+                        color: Colors.black,
+                        size: 24,
+                      ),
                     ),
                   ),
                 ],
@@ -156,7 +192,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    "Today's Offers",
+                    todaysOffersHeader,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -166,7 +202,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                   GestureDetector(
                     onTap: () {},
                     child: const Text(
-                      'View all',
+                      viewAllText,
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
@@ -209,7 +245,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    'Nearyby  Salon',
+                    nearbySalonHeader,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -219,7 +255,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                   GestureDetector(
                     onTap: () {},
                     child: const Text(
-                      'View all',
+                      viewAllText,
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
@@ -235,18 +271,18 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
               // Salon Card 1 (Stylio Men's Salon - assets/images/stylio_Salon.jpeg)
               _buildSalonCard(
                 imagePath: stylioSalonImage,
-                title: "Stylio Men's Salon",
+                title: stylioSalonName,
                 rating: '4.9',
                 reviews: '(1.2K)',
-                address: 'BhaktiNagar, Rajkot',
+                address: stylioLocation,
                 price: '₹199 onwards',
                 onBookTap: () {
                   _openSalonDetails(
-                    title: "Stylio Men's Salon",
+                    title: stylioSalonName,
                     imagePath: stylioSalonImage,
                     rating: '4.9',
                     reviews: '(1.2K)',
-                    address: 'BhaktiNagar, Rajkot',
+                    address: stylioLocation,
                   );
                 },
               ),
@@ -256,18 +292,18 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
               // Salon Card 2 (The Mae Mane Salon - assets/images/The_mae_mane_salon.jpeg)
               _buildSalonCard(
                 imagePath: maeManeSalonImage,
-                title: 'The Mae Mane Salon',
+                title: maeManeSalonName,
                 rating: '4.8',
                 reviews: '(856)',
-                address: 'Gondal Chokdi, Rajkot',
+                address: maeManeLocation,
                 price: '₹149 onwards',
                 onBookTap: () {
                   _openSalonDetails(
-                    title: 'The Mae Mane Salon',
+                    title: maeManeSalonName,
                     imagePath: maeManeSalonImage,
                     rating: '4.8',
                     reviews: '(856)',
-                    address: 'Gondal Chokdi, Rajkot',
+                    address: maeManeLocation,
                   );
                 },
               ),
@@ -290,9 +326,35 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
         child: BottomNavigationBar(
           currentIndex: _selectedIndex,
           onTap: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
+            if (index == 1) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const SearchScreen(),
+                ),
+              );
+            } else if (index == 2) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const MyBookingsScreen(),
+                ),
+              );
+            } else if (index == 3) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const UserSettingsScreen(),
+                ),
+              );
+            } else if (index == 4) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const UserProfileScreen(),
+                ),
+              );
+            } else {
+              setState(() {
+                _selectedIndex = index;
+              });
+            }
           },
           type: BottomNavigationBarType.fixed,
           backgroundColor: Colors.white,
@@ -471,7 +533,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                             ),
                           ),
                           child: const Text(
-                            'Book Now',
+                            bookNowButtonText,
                             style: TextStyle(
                               fontSize: 11,
                               fontWeight: FontWeight.bold,

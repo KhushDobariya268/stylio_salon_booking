@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stylio_salon_booking/admin_panel/admin_dashboard_screen.dart';
 import 'package:stylio_salon_booking/admin_panel/admin_forgot_password_screen.dart';
 import 'package:stylio_salon_booking/resources/imagestring.dart';
 import 'package:stylio_salon_booking/resources/textplaceholder.dart';
@@ -239,7 +240,12 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                         height: 50,
                         child: ElevatedButton(
                           onPressed: () {
-                            // Admin Login Action
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const AdminDashboardScreen(),
+                              ),
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFB88E3E),
